@@ -102,15 +102,24 @@ class RADIUSBackend(object):
         """
         Get the RADIUS server details from the settings file.
         """
-        # if type settings.RADIUS_SECRET == tuple
+        if type(settings.RADIUS_SERVER) is tuple:
+            RADIUS_SERVER = settings.RADIUS_SERVER[0]
+        else:
+            RADIUS_SERVER = settings.RADIUS_SERVER
+        
+        if type(settings.RADIUS_PORT) is tuple:
+            RADIUS_PORT = settings.RADIUS_PORT[0]
+        else:
+            RADIUS_PORT = settings.RADIUS_PORT
+
         if type(settings.RADIUS_SECRET) is tuple:
             RADIUS_SECRET = settings.RADIUS_SECRET[0]
         else:
             RADIUS_SECRET = settings.RADIUS_SECRET
 
         return (
-            settings.RADIUS_SERVER,
-            settings.RADIUS_PORT,
+            RADIUS_SERVER,
+            RADIUS_PORT,
             RADIUS_SECRET.encode('utf-8'),
         )
 
